@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: quantexa-text-classifier-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: quantexa-text-classifier
+  template:
+    metadata:
+      labels:
+        app: quantexa-text-classifier
+    spec:
+      containers:
+      - name: quantexa-text-classifier
+        image: carlosrosado/ml-challenge-quantexa-web:latest
+        resources:
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+        ports:
+        - containerPort: 8000
+        - containerPort: 9090
+        readinessProbe:
+          httpGet:
+            path: /metrics
+            port: 9090
+          initialDelaySeconds: 10
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /metrics
+            port: 9090
+          initialDelaySeconds: 30
+          periodSeconds: 20
