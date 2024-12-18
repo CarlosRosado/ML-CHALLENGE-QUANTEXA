@@ -1,0 +1,8 @@
+Setting up port forwarding for pod quantexa-text-classifier-deployment-7bfbbb6d45-kn26c
+Forwarding from 127.0.0.1:8001 -> 8001
+Forwarding from [::1]:8001 -> 8001
+Handling connection for 8001
+Handling connection for 8001
+./port-forward.sh: line 20: 44949 Terminated: 15          kubectl port-forward -n $NAMESPACE $POD_NAME 8001:8001
+Forwarding from 127.0.0.1:8001 -> 8001
+Forwarding from [::1]:8001 -> 8001

@@ -1,0 +1,81 @@
+
+swagger: "2.0"
+info:
+  title: "Prediction API"
+  description: "This is a sample prediciton API."
+  version: "1.0.0"
+host: "localhost:8080"
+basePath: "/"
+schemes:
+- "http"
+paths:
+  /:
+    get:
+      summary: "Root Endpoint"
+      description: "Returns a welcome message."
+      responses:
+        "200":
+          description: "Successful response"
+          schema:
+            type: "object"
+            properties:
+              message:
+                type: "string"
+  /prediction:
+    post:
+      operationId: "prediction"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "The document to perform a prediction on"
+        required: true
+        schema:
+          $ref: "#/definitions/ApiRequest"
+      responses:
+        "200":
+          description: "Successful prediction"
+          schema:
+            $ref: '#/definitions/ApiResponse'
+        "405":
+          description: "Validation exception"
+        "422":
+          description: "Validation error"
+        "500":
+          description: "Internal server error"
+  /specifications:
+    get:
+      summary: "Get OpenAPI Specifications"
+      description: "Returns the OpenAPI specifications."
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "Successful response"
+          schema:
+            type: "object"
+  /metrics:
+    get:
+      summary: "Metrics Endpoint"
+      description: "Returns the current metrics of the service."
+      produces:
+      - "text/plain"
+      responses:
+        "200":
+          description: "Successful response"
+definitions:
+  ApiRequest:
+    type: "object"
+    properties:
+      text:
+        type: "string"
+        description: "The text to perform the prediction on"
+  ApiResponse:
+    type: "object"
+    properties:
+      label:
+        type: "string"
+        description: "The prediction label"
